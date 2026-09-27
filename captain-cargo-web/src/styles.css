@@ -1,0 +1,381 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Captain Cargo — design tokens
+   Based on the "Geniestudio" style reference: soft daylight canvas,
+   mid-weight display type, dark pill CTAs, pastel tiles, one iris-blue accent.
+   ========================================================================== */
+
+@theme {
+  /* Colors */
+  --color-sky-tint: #ebf5ff;
+  --color-paper-white: #ffffff;
+  --color-bone-white: #fafdff;
+  --color-mist-gray: #f6f7f8;
+  --color-ink: #0a0d12;
+  --color-charcoal: #181d27;
+  --color-graphite: #535862;
+  --color-fog: #93979f;
+  --color-slate-shadow: #3b3d41;
+  --color-iris-blue: #0069e0;
+  --color-iris-light: #479dff;
+  --color-sky-blue: #0099ff;
+  --color-lavender-wash: #f1e6ff;
+  --color-mint-wash: #d3f6e3;
+  --color-powder-blue: #cce7ff;
+  --color-solar-wash: #fff2be;
+  --color-peach-wash: #ffe4d4;
+
+  /* Typography */
+  --font-display: "Aeonik", "General Sans", "Geist", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+
+  /* Type scale (fluid at the top end so it holds up on phones) */
+  --text-caption: 10px;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: -0.01em;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.4;
+  --text-body-sm--letter-spacing: -0.01em;
+  --text-body: 16px;
+  --text-body--line-height: 1.5;
+  --text-body--letter-spacing: -0.01em;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.45;
+  --text-body-lg--letter-spacing: -0.01em;
+  --text-subheading: 20px;
+  --text-subheading--line-height: 1.4;
+  --text-subheading--letter-spacing: -0.01em;
+  --text-heading-sm: 24px;
+  --text-heading-sm--line-height: 1.17;
+  --text-heading-sm--letter-spacing: -0.02em;
+  --text-heading: clamp(26px, 3vw, 32px);
+  --text-heading--line-height: 1.2;
+  --text-heading--letter-spacing: -0.02em;
+  --text-heading-lg: clamp(34px, 4.6vw, 48px);
+  --text-heading-lg--line-height: 1.12;
+  --text-heading-lg--letter-spacing: -0.02em;
+  --text-display: clamp(44px, 7vw, 72px);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.02em;
+  --text-hero: clamp(52px, 11.5vw, 148px);
+  --text-hero--line-height: 1.02;
+  --text-hero--letter-spacing: -0.02em;
+
+  /* Radii */
+  --radius-card: 32px;
+  --radius-image: 24px;
+  --radius-input: 16px;
+  --radius-hero: 90px;
+
+  /* Shadows */
+  --shadow-soft: 0 14px 20px 4px rgba(4, 69, 144, 0.08);
+  --shadow-press: 0 1px 2px 0 rgba(10, 13, 18, 0.8), 0 0 0 1px rgb(10, 13, 18);
+
+  /* Motion */
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:root {
+  --gradient-iris: linear-gradient(rgb(71, 157, 255) 11.43%, rgb(0, 105, 224) 78.2%);
+  --gradient-solar: linear-gradient(rgb(255, 249, 224) 0%, rgb(255, 236, 163) 100%);
+  --gradient-violet: linear-gradient(rgb(244, 235, 255) 0%, rgb(228, 204, 255) 100%);
+  --gradient-aqua: linear-gradient(rgb(229, 246, 255) 0%, rgb(194, 233, 255) 100%);
+  --gradient-peach: linear-gradient(rgb(255, 242, 235) 0%, rgb(255, 209, 184) 100%);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-sky-tint);
+    color: var(--color-graphite);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    font-feature-settings: "case";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-iris-light);
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  ::selection {
+    background: var(--color-powder-blue);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+@layer components {
+  /* Page container: 1200px max, 16px+ gutter */
+  .page {
+    width: 100%;
+    max-width: calc(1200px + 2 * 1.25rem);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .page {
+      max-width: calc(1200px + 4rem);
+      padding-inline: 2rem;
+    }
+  }
+
+  .section {
+    padding-block: 64px;
+  }
+  @media (min-width: 768px) {
+    .section {
+      padding-block: 96px;
+    }
+  }
+
+  /* Primary CTA — dark filled pill, the only dense element on the page */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    background: var(--color-charcoal);
+    color: var(--color-paper-white);
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-press);
+    transition:
+      background-color 0.3s var(--ease-settle),
+      transform 0.3s var(--ease-settle);
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    background: var(--color-ink);
+    transform: translateY(-1px);
+  }
+
+  /* Compact filled pill for inline actions */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 16px;
+    background: var(--color-charcoal);
+    color: var(--color-paper-white);
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-press);
+    white-space: nowrap;
+  }
+
+  /* Text-only action */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 9999px;
+    padding: 12px 20px;
+    color: var(--color-ink);
+    font-weight: 500;
+    transition: background-color 0.3s var(--ease-settle);
+    white-space: nowrap;
+  }
+  .btn-ghost:hover {
+    background: rgb(255 255 255 / 0.6);
+  }
+
+  /* Feature card: bone surface on sky canvas, no border, no shadow */
+  .card {
+    background: var(--color-bone-white);
+    border-radius: var(--radius-card);
+    padding: 28px;
+  }
+  @media (min-width: 768px) {
+    .card {
+      padding: 40px;
+    }
+  }
+
+  /* Pastel tile washes */
+  .tile {
+    border-radius: var(--radius-card);
+    padding: 28px;
+  }
+  @media (min-width: 768px) {
+    .tile {
+      padding: 40px;
+    }
+  }
+  .tone-lavender {
+    background: var(--color-lavender-wash);
+  }
+  .tone-mint {
+    background: var(--color-mint-wash);
+  }
+  .tone-powder {
+    background: var(--color-powder-blue);
+  }
+  .tone-solar {
+    background: var(--color-solar-wash);
+  }
+  .tone-peach {
+    background: var(--color-peach-wash);
+  }
+  .tone-grad-violet {
+    background: var(--gradient-violet);
+  }
+  .tone-grad-aqua {
+    background: var(--gradient-aqua);
+  }
+  .tone-grad-solar {
+    background: var(--gradient-solar);
+  }
+  .tone-grad-peach {
+    background: var(--gradient-peach);
+  }
+
+  /* Pill tag / chip */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-iris-blue);
+    letter-spacing: -0.01em;
+  }
+
+  /* Inline emphasis inside headlines/body */
+  .highlight {
+    color: var(--color-sky-blue);
+  }
+
+  /* Icon chip used inside cards */
+  .icon-chip {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: var(--color-paper-white);
+    color: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  /* Iris gradient frame — the one place a gradient border appears */
+  .iris-frame {
+    border: 3px solid transparent;
+    border-radius: 40px;
+    background:
+      linear-gradient(var(--color-bone-white), var(--color-bone-white)) padding-box,
+      var(--gradient-iris) border-box;
+    padding: 10px;
+  }
+  @media (min-width: 768px) {
+    .iris-frame {
+      border-radius: var(--radius-hero);
+      padding: 18px;
+    }
+  }
+
+  /* Form inputs */
+  .field {
+    width: 100%;
+    border-radius: var(--radius-input);
+    background: var(--color-paper-white);
+    border: 1px solid transparent;
+    padding: 14px 18px;
+    color: var(--color-ink);
+    font-weight: 500;
+    transition: border-color 0.2s;
+  }
+  .field::placeholder {
+    color: var(--color-fog);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-iris-blue);
+  }
+  .field.is-invalid {
+    border-color: #d92d20;
+  }
+
+  .field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--color-ink);
+  }
+
+  /* Marquee mask (fades edges) */
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+}

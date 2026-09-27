@@ -1,0 +1,133 @@
+<!-- Hero -->
+<section class="page pt-14 text-center md:pt-24">
+  <p class="eyebrow">Contact</p>
+  <h1 class="mx-auto mt-5 max-w-4xl text-display">How can we <span class="highlight">help?</span></h1>
+  <p class="mx-auto mt-5 max-w-xl text-body-lg text-graphite">
+    Our team is available {{ company.supportHours }} for your logistics needs.
+  </p>
+</section>
+
+<!-- Contact options -->
+<section class="page pt-14">
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <a [href]="'tel:' + company.phone.tel" class="tile tone-lavender flex flex-col">
+      <span class="icon-chip"><app-icon name="phone" /></span>
+      <span class="mt-8 text-body-sm text-graphite">Call us</span>
+      <span class="mt-1 text-subheading text-ink">{{ company.phone.display }}</span>
+      <span class="mt-1 text-body-sm text-graphite">or {{ company.phoneAlt.display }}</span>
+    </a>
+    <a [href]="'mailto:' + company.email" class="tile tone-solar flex flex-col">
+      <span class="icon-chip"><app-icon name="mail" /></span>
+      <span class="mt-8 text-body-sm text-graphite">Email us</span>
+      <span class="mt-1 break-all text-subheading text-ink">{{ company.email }}</span>
+    </a>
+    <a [href]="company.social.whatsapp" target="_blank" rel="noopener" class="tile tone-mint flex flex-col">
+      <span class="icon-chip"><app-icon name="chat" /></span>
+      <span class="mt-8 text-body-sm text-graphite">WhatsApp</span>
+      <span class="mt-1 text-subheading text-ink">Chat with our team</span>
+    </a>
+    <a [href]="company.address.mapsUrl" target="_blank" rel="noopener" class="tile tone-powder flex flex-col">
+      <span class="icon-chip"><app-icon name="building" /></span>
+      <span class="mt-8 text-body-sm text-graphite">Main office</span>
+      <span class="mt-1 text-subheading text-ink">{{ company.address.line1 }}</span>
+      <span class="mt-1 text-body-sm text-graphite">{{ company.address.city }}, {{ company.address.country }}</span>
+    </a>
+  </div>
+</section>
+
+<!-- Form + map -->
+<section class="section page">
+  <div class="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
+    <div class="card">
+      @if (prepared(); as p) {
+        <div class="flex h-full flex-col items-start justify-center gap-5 py-6" aria-live="polite">
+          <span class="icon-chip bg-mint-wash"><app-icon name="check" /></span>
+          <h2 class="text-heading">Your message is ready to send</h2>
+          <p class="text-body-lg text-graphite">
+            Choose how you'd like to send it. WhatsApp usually gets the fastest reply.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a [href]="p.whatsapp" target="_blank" rel="noopener" class="btn-primary">
+              <app-icon name="chat" [size]="18" /> Send on WhatsApp
+            </a>
+            <a [href]="p.email" class="btn-ghost">
+              <app-icon name="mail" [size]="18" /> Send by email
+            </a>
+          </div>
+          <button type="button" class="text-body-sm text-iris-blue hover:underline" (click)="reset()">
+            Write a new message
+          </button>
+        </div>
+      } @else {
+        <h2 class="text-heading">Send us a message</h2>
+        <p class="mt-2 text-body text-graphite">Tell us about your shipment and we'll get back to you.</p>
+
+        <form class="mt-8 grid gap-5 sm:grid-cols-2" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div>
+            <label for="c-first" class="field-label">First name</label>
+            <input id="c-first" class="field" formControlName="firstName" autocomplete="given-name"
+              [class.is-invalid]="invalid('firstName')" />
+            @if (invalid('firstName')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.firstName }}</p> }
+          </div>
+          <div>
+            <label for="c-last" class="field-label">Last name</label>
+            <input id="c-last" class="field" formControlName="lastName" autocomplete="family-name"
+              [class.is-invalid]="invalid('lastName')" />
+            @if (invalid('lastName')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.lastName }}</p> }
+          </div>
+          <div>
+            <label for="c-email" class="field-label">Email</label>
+            <input id="c-email" type="email" class="field" formControlName="email" autocomplete="email"
+              [class.is-invalid]="invalid('email')" />
+            @if (invalid('email')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.email }}</p> }
+          </div>
+          <div>
+            <label for="c-phone" class="field-label">Phone</label>
+            <input id="c-phone" type="tel" class="field" formControlName="phone" autocomplete="tel"
+              placeholder="05X XXX XXXX" [class.is-invalid]="invalid('phone')" />
+            @if (invalid('phone')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.phone }}</p> }
+          </div>
+          <div class="sm:col-span-2">
+            <label for="c-subject" class="field-label">Subject</label>
+            <input id="c-subject" class="field" formControlName="subject"
+              placeholder="e.g. Sea freight quote to Karachi" [class.is-invalid]="invalid('subject')" />
+            @if (invalid('subject')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.subject }}</p> }
+          </div>
+          <div class="sm:col-span-2">
+            <label for="c-message" class="field-label">Message</label>
+            <textarea id="c-message" rows="5" class="field resize-y" formControlName="message"
+              placeholder="Cargo type, weight, pickup city and destination help us reply faster."
+              [class.is-invalid]="invalid('message')"></textarea>
+            @if (invalid('message')) { <p class="mt-1.5 text-body-sm text-[#b42318]">{{ errors.message }}</p> }
+          </div>
+          <div class="sm:col-span-2">
+            <button type="submit" class="btn-primary">Continue</button>
+          </div>
+        </form>
+      }
+    </div>
+
+    <a
+      [href]="company.address.mapsUrl"
+      target="_blank"
+      rel="noopener"
+      class="group relative block min-h-80 overflow-hidden rounded-card"
+      aria-label="Open our Riyadh office in Google Maps"
+    >
+      <img [src]="map" alt="" class="absolute inset-0 size-full object-cover" loading="lazy" />
+      <span class="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-2xl bg-paper-white/95 p-4 backdrop-blur">
+        <span>
+          <span class="block text-body text-ink">{{ company.address.line1 }}</span>
+          <span class="block text-body-sm text-fog">{{ company.address.city }}, {{ company.address.country }}</span>
+        </span>
+        <app-icon name="arrow-up-right" class="text-ink transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="page pb-24">
+  <app-section-header eyebrow="FAQ" title="Frequently asked questions" />
+  <app-faq-list class="mx-auto mt-12 max-w-4xl" [items]="faqs" idPrefix="contact-faq" />
+</section>

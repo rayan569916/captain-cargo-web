@@ -1,0 +1,109 @@
+<footer class="pb-10">
+  <!-- Wide CTA block -->
+  <div class="page">
+    <div
+      class="relative overflow-hidden rounded-card bg-bone-white px-6 py-14 text-center md:px-16 md:py-20"
+    >
+      <img
+        [src]="illustration"
+        alt=""
+        class="pointer-events-none mx-auto mb-8 size-28 rounded-3xl object-cover md:size-36"
+        loading="lazy"
+      />
+      <h2 class="mx-auto max-w-3xl text-display">Ship smarter from Saudi Arabia</h2>
+      <p class="mx-auto mt-5 max-w-xl text-body-lg text-graphite">
+        Book pickups, check rates and track every shipment from your phone with the Captain
+        Logistic app.
+      </p>
+      <app-store-buttons class="mt-8" [center]="true" />
+    </div>
+  </div>
+
+  <!-- Link grid -->
+  <div class="page mt-16">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="font-display text-heading-sm text-ink">{{ company.name }}</p>
+        <p class="mt-3 max-w-xs text-body-sm leading-relaxed text-graphite">
+          {{ company.tagline }}. Air, sea and land freight from Saudi Arabia with door-to-door
+          delivery.
+        </p>
+      </div>
+
+      @for (col of columns; track col.title) {
+        <div>
+          <p class="text-body-sm text-fog">{{ col.title }}</p>
+          <ul class="mt-4 flex flex-col gap-3">
+            @for (item of col.items; track item.path) {
+              <li>
+                <a [routerLink]="item.path" class="text-body text-ink hover:text-iris-blue">{{
+                  item.label
+                }}</a>
+              </li>
+            }
+            @if (col.title === 'Platform') {
+              <li>
+                <a
+                  [href]="links.agentLogin"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-body text-ink hover:text-iris-blue"
+                  >Agent login</a
+                >
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <div>
+        <p class="text-body-sm text-fog">Get in touch</p>
+        <ul class="mt-4 flex flex-col gap-3 text-body text-ink">
+          <li class="flex items-start gap-2">
+            <app-icon name="phone" [size]="18" class="mt-0.5 text-graphite" />
+            <a [href]="'tel:' + company.phone.tel" class="hover:text-iris-blue">{{
+              company.phone.display
+            }}</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <app-icon name="mail" [size]="18" class="mt-0.5 text-graphite" />
+            <a [href]="'mailto:' + company.email" class="break-all hover:text-iris-blue">{{
+              company.email
+            }}</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <app-icon name="map-pin" [size]="18" class="mt-0.5 text-graphite" />
+            <span>{{ company.address.line1 }}, {{ company.address.city }}</span>
+          </li>
+          <li class="mt-2 flex gap-2">
+            <a
+              [href]="company.social.whatsapp"
+              target="_blank"
+              rel="noopener"
+              class="grid size-10 place-items-center rounded-full bg-bone-white hover:bg-paper-white"
+              aria-label="WhatsApp"
+            >
+              <app-icon name="chat" [size]="18" />
+            </a>
+            <a
+              [href]="company.social.instagram"
+              target="_blank"
+              rel="noopener"
+              class="grid size-10 place-items-center rounded-full bg-bone-white hover:bg-paper-white"
+              aria-label="Instagram"
+            >
+              <app-icon name="instagram" [size]="18" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-3 border-t border-white pt-6 text-body-sm text-fog sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {{ year }} {{ company.name }}. All rights reserved.</p>
+      <p>{{ company.address.city }}, {{ company.address.country }}</p>
+    </div>
+  </div>
+</footer>

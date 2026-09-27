@@ -1,0 +1,174 @@
+<!-- ============================ OVERVIEW ============================ -->
+<section id="overview" class="page pt-14 text-center md:pt-24">
+  <p class="pill mx-auto bg-bone-white text-graphite">
+    <app-icon name="dashboard" [size]="16" class="text-iris-blue" />
+    Transportation Management System
+  </p>
+  <h1 class="mx-auto mt-6 max-w-5xl text-hero">
+    The <span class="highlight">command center</span> for cargo agents
+  </h1>
+  <p class="mx-auto mt-6 max-w-2xl text-body-lg text-graphite md:text-subheading">
+    Captain Cargo TMS brings finance, fleet, warehouse, accounts and reporting into one dashboard,
+    so every request from the app is handled, tracked and billed in one place.
+  </p>
+  <div class="mt-10 flex flex-wrap justify-center gap-3">
+    <a [href]="links.agentLogin" target="_blank" rel="noopener" class="btn-primary">
+      <app-icon name="login" [size]="18" /> Agent login
+    </a>
+    <a routerLink="/contact" class="btn-ghost">
+      Talk to our team <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+
+  <!-- TMS overview video -->
+  <div class="iris-frame mx-auto mt-14 max-w-6xl">
+    <!-- <app-browser-frame "> -->
+      <app-feature-video
+        [mp4]="video.mp4"
+        [webm]="video.webm"
+        [poster]="video.poster"
+        rounded="rounded-none"
+        label="Captain Cargo TMS dashboard overview"
+        class="overflow-hidden rounded-[28px] md:rounded-[72px]"
+      />
+    <!-- </app-browser-frame> -->
+  </div>
+</section>
+
+<!-- ============================ AT A GLANCE ============================ -->
+<section class="page pt-16 md:pt-20">
+  <dl class="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div class="flex flex-col rounded-card bg-bone-white p-6 text-center md:p-8">
+      <dt class="order-2 mt-1 text-body-sm text-graphite">Module groups</dt>
+      <dd class="font-display text-heading-lg text-ink">{{ groups.length }}</dd>
+    </div>
+    <div class="flex flex-col rounded-card bg-bone-white p-6 text-center md:p-8">
+      <dt class="order-2 mt-1 text-body-sm text-graphite">Modules</dt>
+      <dd class="font-display text-heading-lg text-ink">{{ moduleCount }}</dd>
+    </div>
+    <div class="flex flex-col rounded-card bg-bone-white p-6 text-center md:p-8">
+      <dt class="order-2 mt-1 text-body-sm text-graphite">Offices, one login</dt>
+      <dd class="font-display text-heading-lg text-ink">Multi</dd>
+    </div>
+    <div class="flex flex-col rounded-card bg-bone-white p-6 text-center md:p-8">
+      <dt class="order-2 mt-1 text-body-sm text-graphite">Access</dt>
+      <dd class="font-display text-heading-lg text-ink">By role</dd>
+    </div>
+  </dl>
+</section>
+
+<!-- ============================== MODULES ============================== -->
+<section class="section page">
+  <app-section-header
+    eyebrow="Modules"
+    title="Every part of the operation,"
+    highlight="one screen"
+    subtitle="The TMS home screen groups every module by what it's for. Agents open what they need in one click."
+  />
+
+  <div class="mt-14 grid gap-4 lg:grid-cols-2">
+    @for (g of groups; track g.id) {
+      <article [id]="g.id" class="tile scroll-mt-28" [class]="'tone-' + g.tone">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h3 class="text-heading">{{ g.title }}</h3>
+          <span class="pill bg-paper-white text-graphite">{{ g.modules.length }} modules</span>
+        </div>
+        <p class="mt-2 text-body text-graphite">{{ g.summary }}</p>
+
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          @for (mod of g.modules; track mod.title) {
+            <li class="flex items-start gap-3 rounded-2xl bg-paper-white/70 p-4">
+              <span class="icon-chip size-10 rounded-xl"><app-icon [name]="mod.icon" [size]="18" /></span>
+              <span>
+                <span class="block text-body text-ink">{{ mod.title }}</span>
+                <span class="mt-0.5 block text-body-sm leading-relaxed text-graphite">{{ mod.text }}</span>
+              </span>
+            </li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ============================ DASHBOARD SHOT ============================ -->
+<section class="page">
+  <div class="rounded-card bg-bone-white px-5 py-14 md:px-14 md:py-20">
+    <app-section-header
+      eyebrow="Home screen"
+      title="Welcome back. Here's your day."
+      subtitle="Search from anywhere, switch offices, and see notifications from one header. The sidebar keeps Dashboard, Finance, Fleet, Accounts, System, Reports and Settings one click away."
+    />
+    <app-browser-frame class="mx-auto mt-12 max-w-5xl">
+      <img
+        [src]="dashboard"
+        alt="Captain Cargo TMS home screen with Finance, Fleet Management, Account Management and System modules"
+        class="block aspect-[3/2] w-full object-cover"
+        loading="lazy"
+      />
+    </app-browser-frame>
+  </div>
+</section>
+
+<!-- ======================= APP ⇄ TMS FLOW ======================= -->
+<section class="section page">
+  <app-section-header
+    eyebrow="Connected to the app"
+    title="One booking,"
+    highlight="two sides"
+    subtitle="What the customer does in Captain Logistic and what the agent does in the TMS stay in sync."
+  />
+
+  <ol class="mx-auto mt-14 flex max-w-3xl flex-col gap-3">
+    @for (step of flow; track step.title; let i = $index) {
+      <li class="relative flex gap-5 rounded-card bg-bone-white p-5 md:p-7">
+        <span
+          class="grid size-12 shrink-0 place-items-center rounded-full bg-charcoal font-display text-subheading text-paper-white"
+          >{{ i + 1 }}</span
+        >
+        <div class="flex-1">
+          <h3 class="font-sans text-subheading text-ink">{{ step.title }}</h3>
+          <p class="mt-1 text-body text-graphite">{{ step.text }}</p>
+        </div>
+        <span class="icon-chip hidden bg-sky-tint sm:inline-grid"><app-icon [name]="step.icon" /></span>
+      </li>
+    }
+  </ol>
+
+  <div class="mt-10 text-center">
+    <a routerLink="/mobile-app" class="btn-ghost">
+      See the customer app <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+</section>
+
+<!-- ============================ CAPABILITIES ============================ -->
+<section class="page">
+  <app-section-header eyebrow="Built for teams" title="Made for multi-branch operations" />
+  <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (c of capabilities; track c.title) {
+      <article class="card">
+        <span class="icon-chip bg-sky-tint"><app-icon [name]="c.icon" /></span>
+        <h3 class="mt-8 text-heading-sm">{{ c.title }}</h3>
+        <p class="mt-3 text-body text-graphite">{{ c.text }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ================================ CTA ================================ -->
+<section class="section page text-center">
+  <h2 class="mx-auto max-w-3xl text-display">People. Process. Performance.</h2>
+  <p class="mx-auto mt-5 max-w-xl text-body-lg text-graphite">
+    Captain Cargo agents sign in to the TMS with their company account. Need access or want to
+    partner with us? Get in touch.
+  </p>
+  <div class="mt-8 flex flex-wrap justify-center gap-3">
+    <a [href]="links.agentLogin" target="_blank" rel="noopener" class="btn-primary">
+      <app-icon name="login" [size]="18" /> Agent login
+    </a>
+    <a routerLink="/contact" class="btn-ghost">
+      Contact us <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+</section>

@@ -1,0 +1,266 @@
+<!-- ============================== HERO ============================== -->
+<section class="page pt-14 text-center md:pt-24">
+  <p class="pill mx-auto bg-bone-white text-graphite">
+    <app-icon name="globe" [size]="16" class="text-iris-blue" />
+    Air, sea and land freight from Saudi Arabia
+  </p>
+
+  <h1 class="mx-auto mt-6 max-w-5xl text-hero">
+    Your cargo,<br />
+    <span class="highlight">our priority</span>
+  </h1>
+
+  <p class="mx-auto mt-6 max-w-2xl text-body-lg text-graphite md:text-subheading">
+    Door-to-door shipping from Saudi Arabia to the world, with pickup from your location and
+    tracking at every stage, in the Captain Logistic app or right here.
+  </p>
+
+  <!-- Quick track -->
+  <form
+    class="mx-auto mt-10 flex max-w-xl flex-col gap-3 rounded-[28px] bg-bone-white p-2 sm:flex-row sm:rounded-full"
+    (submit)="$event.preventDefault(); track()"
+  >
+    <label for="hero-track" class="sr-only">Shipment reference</label>
+    <div class="flex flex-1 items-center gap-3 px-4">
+      <app-icon name="search" [size]="20" class="text-fog" />
+      <input
+        id="hero-track"
+        type="text"
+        autocomplete="off"
+        placeholder="Enter a shipment reference, e.g. CAP-2026-030"
+        class="w-full bg-transparent py-3 text-body text-ink outline-none placeholder:text-fog"
+        [formControl]="trackingRef"
+      />
+    </div>
+    <button type="submit" class="btn-primary">Track shipment</button>
+  </form>
+
+  <div class="mt-5 flex flex-wrap justify-center gap-2">
+    <a routerLink="/mobile-app" class="btn-ghost">
+      Explore the app <app-icon name="arrow-right" [size]="18" />
+    </a>
+    <a routerLink="/contact" class="btn-ghost">
+      Get a quote <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+
+<div class="iris-frame mx-auto mt-14 max-w-5xl">
+  <video
+    class="aspect-[5/3] w-full rounded-[28px] object-cover md:rounded-[72px]"
+    width="1200"
+    height="720"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
+  >
+    <source src="mobile-app.mp4" type="video/mp4" />
+    <source src="mobile-app.webm" type="video/webm" />
+  </video>
+</div>
+</section>
+
+<!-- ======================= DESTINATIONS MARQUEE ======================= -->
+<section class="pt-16 md:pt-20" aria-labelledby="destinations-title">
+  <p id="destinations-title" class="page text-center text-body-sm text-fog">
+    Shipping from Saudi Arabia to
+  </p>
+  <div class="marquee-mask mt-6 overflow-hidden">
+    <ul class="flex w-max animate-marquee gap-3 hover:[animation-play-state:paused]">
+      @for (d of marquee; track $index) {
+        <li
+          class="pill bg-bone-white px-5 py-2.5 text-body text-ink"
+          [attr.aria-hidden]="$index >= marquee.length / 2 ? 'true' : null"
+        >
+          <span class="text-body-sm text-iris-blue">{{ d.code }}</span>
+          {{ d.country }}
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ SERVICES ============================ -->
+<section class="section page">
+  <app-section-header
+    eyebrow="Services"
+    title="Cargo moved"
+    highlight="by air, sea and land"
+    subtitle="Complete cargo and logistics solutions, from local handling to international freight, managed with care from pickup to final delivery."
+  />
+
+  <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    @for (s of featuredServices; track s.id) {
+      <article class="tile flex flex-col" [class]="'tone-' + s.tone">
+        <span class="icon-chip"><app-icon [name]="s.icon" /></span>
+        <h3 class="mt-10 text-heading-sm">{{ s.title }}</h3>
+        <p class="mt-3 text-body text-graphite">{{ s.summary }}</p>
+      </article>
+    }
+  </div>
+
+  <div class="mt-10 text-center">
+    <a routerLink="/services" class="btn-primary">
+      See all 9 services <app-icon name="arrow-right" [size]="18" />
+    </a>
+  </div>
+</section>
+
+<!-- ======================= CAPTAIN LOGISTIC APP ======================= -->
+<section class="page">
+  <div class="rounded-card bg-bone-white px-5 py-14 md:px-14 md:py-20">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.15fr]">
+      <div>
+        <p class="eyebrow">Captain Logistic app</p>
+        <h2 class="mt-4 text-display">
+          Your cargo. Your phone. <span class="highlight">Complete control.</span>
+        </h2>
+        <p class="mt-5 text-body-lg text-graphite">
+          Book doorstep pickups, calculate shipping rates, track your cargo in real time and manage
+          your shipping history, all from your phone.
+        </p>
+
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+          @for (f of appFeatures; track f.title) {
+            <li class="flex gap-3">
+              <span class="icon-chip size-10 bg-sky-tint"><app-icon [name]="f.icon" [size]="18" /></span>
+              <span>
+                <span class="block text-body text-ink">{{ f.title }}</span>
+                <span class="mt-1 block text-body-sm leading-relaxed text-fog">{{ f.text }}</span>
+              </span>
+            </li>
+          }
+        </ul>
+
+        <div class="mt-10 flex flex-wrap items-center gap-3">
+          <app-store-buttons />
+          <a routerLink="/mobile-app" class="btn-ghost">
+            Explore the app <app-icon name="arrow-right" [size]="18" />
+          </a>
+        </div>
+      </div>
+
+      <app-feature-video
+        [mp4]="assets.videos.appOverview.mp4"
+        [webm]="assets.videos.appOverview.webm"
+        [poster]="assets.videos.appOverview.poster"
+        label="Captain Logistic app: home and wallet screens"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- ========================== HOW IT WORKS ========================== -->
+<section class="section page">
+  <app-section-header
+    eyebrow="How it works"
+    title="From your door to theirs"
+    subtitle="Four steps, all visible in the app."
+  />
+
+  <ol class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    @for (step of steps; track step.title; let i = $index) {
+      <li class="card flex flex-col">
+        <div class="flex items-center justify-between">
+          <span class="icon-chip bg-sky-tint"><app-icon [name]="step.icon" /></span>
+          <span class="font-display text-heading text-powder-blue">0{{ i + 1 }}</span>
+        </div>
+        <h3 class="mt-8 text-heading-sm">{{ step.title }}</h3>
+        <p class="mt-2 text-body text-graphite">{{ step.text }}</p>
+      </li>
+    }
+  </ol>
+</section>
+
+<!-- =========================== ONE PLATFORM =========================== -->
+<section class="page">
+  <app-section-header
+    eyebrow="One platform"
+    title="An app for customers."
+    highlight="A command center for agents."
+    subtitle="Every booking made in the app lands in our Cargo TMS, and every update our agents make shows up on the customer's phone."
+  />
+
+  <div class="mt-14 grid gap-4 md:grid-cols-2">
+    <a routerLink="/mobile-app" class="tile tone-grad-violet group flex flex-col">
+      <span class="icon-chip"><app-icon name="smartphone" /></span>
+      <h3 class="mt-10 text-heading">Captain Logistic app</h3>
+      <p class="mt-3 text-body-lg text-graphite">
+        Book, pay, track and get support, for customers shipping from Saudi Arabia.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-2 text-body text-ink">
+        See the app
+        <app-icon name="arrow-right" [size]="18" class="transition-transform group-hover:translate-x-1" />
+      </span>
+    </a>
+    <a routerLink="/cargo-tms" class="tile tone-grad-aqua group flex flex-col">
+      <span class="icon-chip"><app-icon name="dashboard" /></span>
+      <h3 class="mt-10 text-heading">Captain Cargo TMS</h3>
+      <p class="mt-3 text-body-lg text-graphite">
+        Finance, fleet, warehouse and reporting in one dashboard for cargo agents.
+      </p>
+      <span class="mt-8 inline-flex items-center gap-2 text-body text-ink">
+        See the TMS
+        <app-icon name="arrow-right" [size]="18" class="transition-transform group-hover:translate-x-1" />
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- ========================== WHY CHOOSE US ========================== -->
+<section class="section page">
+  <app-section-header
+    eyebrow="Why Captain Cargo"
+    title="A cargo partner you can rely on"
+    subtitle="We take full responsibility for every shipment, with safe handling, timely delivery and clear communication throughout."
+  />
+
+  <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (item of whyUs; track item.title) {
+      <article class="card">
+        <span class="icon-chip bg-sky-tint"><app-icon [name]="item.icon" /></span>
+        <h3 class="mt-8 text-heading-sm">{{ item.title }}</h3>
+        <p class="mt-3 text-body text-graphite">{{ item.text }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ============================== STATS ============================== -->
+<section class="page">
+  <dl class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    @for (s of stats; track s.label) {
+      <div class="flex flex-col rounded-card bg-bone-white p-6 text-center md:p-10">
+        <dt class="order-2 mt-2 text-body text-graphite">{{ s.label }}</dt>
+        <dd class="font-display text-display tabular-nums text-ink">{{ s.value }}</dd>
+      </div>
+    }
+  </dl>
+</section>
+
+<!-- =========================== TESTIMONIAL =========================== -->
+@if (testimonial) {
+  <section class="section page">
+    <figure class="card mx-auto max-w-4xl text-center">
+      <blockquote class="font-display text-heading text-ink">
+        “{{ testimonial.quote }}”
+      </blockquote>
+      <figcaption class="mt-8 border-t border-sky-tint pt-6">
+        <span class="block text-body text-ink">{{ testimonial.name }}</span>
+        <span class="block text-body-sm text-fog">{{ testimonial.role }}</span>
+      </figcaption>
+    </figure>
+  </section>
+}
+
+<!-- =============================== FAQ =============================== -->
+<section class="page pb-24">
+  <app-section-header eyebrow="FAQ" title="Questions, answered" />
+  <app-faq-list class="mx-auto mt-12 max-w-4xl" [items]="faqs" idPrefix="home-faq" />
+  <p class="mt-8 text-center text-body text-graphite">
+    More questions?
+    <a routerLink="/contact" class="text-iris-blue underline-offset-4 hover:underline">Talk to our team</a>,
+    we're available {{ company.supportHours }}.
+  </p>
+</section>

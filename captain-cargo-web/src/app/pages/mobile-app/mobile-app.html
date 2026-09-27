@@ -1,0 +1,168 @@
+<!-- ============================ OVERVIEW ============================ -->
+<section id="overview" class="page pt-14 text-center md:pt-24">
+  <p class="pill mx-auto bg-bone-white text-graphite">
+    <app-icon name="smartphone" [size]="16" class="text-iris-blue" />
+    Captain Logistic · for Android
+  </p>
+  <h1 class="mx-auto mt-6 max-w-5xl text-hero">
+    Cargo, <span class="highlight">in your pocket</span>
+  </h1>
+  <p class="mx-auto mt-6 max-w-2xl text-body-lg text-graphite md:text-subheading">
+    Ship from Saudi Arabia to the world with a simple, reliable and transparent app. Book pickups,
+    check rates, pay from your wallet and track every stage of the journey.
+  </p>
+  <app-store-buttons class="mt-10" [center]="true" />
+
+  <!-- App overview video (floating phones: Home + Wallet) -->
+<div class="iris-frame mx-auto mt-14 max-w-5xl">
+  <video
+    class="aspect-[5/3] w-full rounded-[28px] object-cover md:rounded-[72px]"
+    width="1200"
+    height="720"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
+  >
+    <source src="mobile-app.mp4" type="video/mp4" />
+    <source src="mobile-app.webm" type="video/webm" />
+  </video>
+</div>
+</section>
+
+<!-- ========================= MODULE JUMP NAV ========================= -->
+<nav class="page mt-14" aria-label="App modules">
+  <ul class="flex flex-wrap justify-center gap-2">
+    @for (m of modules; track m.id) {
+      <li>
+        <a
+          routerLink="/mobile-app"
+          [fragment]="m.id"
+          class="pill bg-bone-white px-4 py-2 text-body-sm text-ink hover:bg-paper-white"
+          >{{ m.label }}</a
+        >
+      </li>
+    }
+  </ul>
+</nav>
+
+<!-- ============================ FEATURES ============================ -->
+<section class="section page">
+  <app-section-header
+    eyebrow="Features"
+    title="Everything you need,"
+    highlight="in one app"
+    subtitle="The same service you get from our team, available from your phone at any hour."
+  />
+  <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (f of features; track f.title) {
+      <article class="card">
+        <span class="icon-chip bg-sky-tint"><app-icon [name]="f.icon" /></span>
+        <h3 class="mt-8 text-heading-sm">{{ f.title }}</h3>
+        <p class="mt-3 text-body text-graphite">{{ f.text }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- ======================= MODULES DEEP DIVE ======================= -->
+<section class="page flex flex-col gap-6" aria-label="App modules in detail">
+  @for (m of modules; track m.id; let odd = $odd) {
+    <article
+      [id]="m.id"
+      class="tile scroll-mt-28 overflow-hidden"
+      [class]="'tone-' + m.tone"
+    >
+      <div
+        class="grid items-center gap-10 lg:gap-16"
+        [class]="odd ? 'lg:grid-cols-[340px_minmax(0,1fr)]' : 'lg:grid-cols-[minmax(0,1fr)_340px]'"
+      >
+        <div [class]="odd ? 'lg:order-2' : ''">
+          <p class="pill bg-paper-white text-ink">{{ m.label }}</p>
+          <h2 class="mt-5 text-heading-lg">{{ m.title }}</h2>
+          <p class="mt-4 max-w-xl text-body-lg text-graphite">{{ m.summary }}</p>
+
+          <ul class="mt-10 grid gap-6 sm:grid-cols-2">
+            @for (h of m.highlights; track h.title) {
+              <li class="flex gap-4">
+                <span class="icon-chip"><app-icon [name]="h.icon" [size]="20" /></span>
+                <span>
+                  <span class="block text-body-lg text-ink">{{ h.title }}</span>
+                  <span class="mt-1 block text-body text-graphite">{{ h.text }}</span>
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <app-phone-frame
+          class="mx-auto w-full max-w-[300px]"
+          [class]="odd ? 'lg:order-1' : ''"
+          [src]="m.screen"
+          [alt]="m.screenAlt"
+        />
+      </div>
+    </article>
+  }
+</section>
+
+<!-- ========================== HOW IT WORKS ========================== -->
+<section class="section page">
+  <app-section-header
+    eyebrow="How it works"
+    title="Book, pickup, track,"
+    highlight="delivered"
+  />
+  <ol class="relative mt-14 grid gap-4 md:grid-cols-4">
+    @for (step of steps; track step.title; let i = $index; let last = $last) {
+      <li class="card relative text-center">
+        <span class="mx-auto grid size-14 place-items-center rounded-full bg-charcoal font-display text-heading-sm text-paper-white">
+          {{ i + 1 }}
+        </span>
+        <h3 class="mt-6 text-heading-sm">{{ step.title }}</h3>
+        <p class="mt-2 text-body text-graphite">{{ step.text }}</p>
+        @if (!last) {
+          <app-icon
+            name="arrow-right"
+            [size]="20"
+            class="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-sky-tint p-0.5 text-iris-blue md:inline-flex"
+          />
+        }
+      </li>
+    }
+  </ol>
+</section>
+
+<!-- ========================== DESTINATIONS ========================== -->
+<section class="page">
+  <div class="card">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
+      <div>
+        <p class="eyebrow">Destinations</p>
+        <h2 class="mt-4 text-heading-lg">Ship from Saudi Arabia to 12 countries in the app</h2>
+        <p class="mt-4 text-body-lg text-graphite">
+          Air and sea options to South Asia, Southeast Asia, Egypt, the USA, the UK and China.
+          Need somewhere else? <a routerLink="/contact" class="text-iris-blue hover:underline">Ask our team.</a>
+        </p>
+      </div>
+      <ul class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        @for (d of destinations; track d.code) {
+          <li class="flex items-center gap-3 rounded-2xl bg-sky-tint px-4 py-3">
+            <span class="text-body-sm text-iris-blue">{{ d.code }}</span>
+            <span class="truncate text-body text-ink">{{ d.country }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DOWNLOAD ============================ -->
+<section class="section page text-center">
+  <h2 class="mx-auto max-w-3xl text-display">Ready to ship smarter?</h2>
+  <p class="mx-auto mt-5 max-w-xl text-body-lg text-graphite">
+    Download Captain Logistic and manage your international shipments from your phone.
+  </p>
+  <app-store-buttons class="mt-8" [center]="true" />
+</section>

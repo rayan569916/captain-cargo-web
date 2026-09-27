@@ -1,0 +1,85 @@
+<header class="border-b border-white/60 bg-sky-tint/85 backdrop-blur-md">
+  <div class="page flex h-18 items-center justify-between gap-6">
+    <!-- Logo -->
+    <a routerLink="/" class="flex shrink-0 items-center" (click)="menuOpen.set(false)">
+      <img
+        [src]="logo"
+        [alt]="company.name"
+        class="h-10 w-auto rounded-lg md:h-11"
+        width="132"
+        height="44"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 xl:flex" aria-label="Main">
+      @for (item of nav; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="text-ink! bg-bone-white"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="rounded-full px-4 py-2 text-body text-graphite transition-colors hover:text-ink"
+          >{{ item.label }}</a
+        >
+      }
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-2">
+      <a
+        [href]="links.agentLogin"
+        target="_blank"
+        rel="noopener"
+        class="btn-ghost hidden md:inline-flex"
+      >
+        <app-icon name="login" [size]="18" />
+        Agent login
+      </a>
+      <a
+        [href]="links.playStore"
+        target="_blank"
+        rel="noopener"
+        class="btn-primary hidden sm:inline-flex"
+      >
+        Download app
+      </a>
+      <button
+        type="button"
+        class="grid size-11 place-items-center rounded-full bg-bone-white text-ink xl:hidden"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="toggleMenu()"
+      >
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile / tablet menu -->
+  @if (menuOpen()) {
+    <div id="mobile-menu" class="page pb-6 xl:hidden">
+      <nav class="card flex flex-col gap-1 p-4" aria-label="Main">
+        @for (item of nav; track item.path) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="bg-sky-tint text-ink!"
+            [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+            class="rounded-2xl px-4 py-3 text-body-lg text-graphite"
+            (click)="menuOpen.set(false)"
+            >{{ item.label }}</a
+          >
+        }
+        <div class="mt-3 flex flex-wrap gap-2 border-t border-sky-tint pt-4">
+          <a [href]="links.playStore" target="_blank" rel="noopener" class="btn-primary">
+            Download app
+          </a>
+          <a [href]="links.agentLogin" target="_blank" rel="noopener" class="btn-ghost">
+            <app-icon name="login" [size]="18" />
+            Agent login
+          </a>
+        </div>
+      </nav>
+    </div>
+  }
+</header>
