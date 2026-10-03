@@ -170,6 +170,11 @@ const ICONS = {
   zap: [
     'M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z',
   ],
+  'zoom-in': ['M11 3a8 8 0 1 0 0 16A8 8 0 0 0 11 3z', 'M21 21l-4.35-4.35', 'M11 8v6', 'M8 11h6'],
+  'alert-circle': ['M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0', 'M12 8v4', 'M12 16h.01'],
+  'chevron-left': ['m15 18-6-6 6-6'],
+  'chevron-right': ['m9 18 6-6-6-6'],
+  x: ['M18 6 6 18', 'm6 6 12 12'],
 } as const satisfies Record<string, readonly string[]>;
 
 export type IconName = keyof typeof ICONS;

@@ -41,6 +41,7 @@ export const NAV: NavLink[] = [
   { label: 'Mobile App', path: '/mobile-app' },
   { label: 'Cargo TMS', path: '/cargo-tms' },
   { label: 'Track', path: '/track' },
+  { label: 'Gallery', path: '/gallery' },
   { label: 'Contact', path: '/contact' },
 ];
 

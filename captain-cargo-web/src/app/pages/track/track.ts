@@ -13,6 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 import { Icon } from '../../shared/icon';
 import { TrackingResult, TrackingService } from '../../core/services/tracking.service';
 import { COMPANY } from '../../core/data/site.data';
+import { ToastService } from '../../service/toast';
 
 @Component({
   selector: 'app-track',
@@ -23,6 +24,7 @@ import { COMPANY } from '../../core/data/site.data';
 export class Track {
   private readonly tracking = inject(TrackingService);
   private readonly router = inject(Router);
+  toastService = inject(ToastService);
 
   /** Bound from the ?ref= query param (withComponentInputBinding). */
   readonly ref = input<string>();
@@ -56,7 +58,7 @@ export class Track {
       return;
     }
     if (ref === this.ref()) {
-      void this.lookup(ref);
+       
       return;
     }
     // Put the reference in the URL (shareable, survives refresh); the `ref` input
